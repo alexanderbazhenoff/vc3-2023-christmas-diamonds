@@ -1,9 +1,13 @@
 # VC3 '2023: Christmas Diamonds
 
-125 bytes of Christmas Fun. My work for 
+125 bytes of Christmas Fun. :christmas_tree: My work for 
 __[Vintage Computing Christmas Challenge 2023 (VC³ 2023)](https://logiker.com/Vintage-Computing-Christmas-Challenge-2023)__.
 
 [![screenshot](screenshot.png)](https://youtu.be/RGv2u6epVTY?si=gfbsXkw4JITLBSnn&t=1035)
+
+![build-test-push](https://github.com/alexanderbazhenoff/vc3-2023-christmas-diamonds/actions/workflows/build-test-push.yml/badge.svg?branch=main)
+![release](https://github.com/alexanderbazhenoff/vc3-2023-christmas-diamonds/actions/workflows/release.yml/badge.svg?branch=main)
+
 
 After the break for 20 years of ZX-Spectrum assembler coding or so, I decided to make the first attempt of 'sizecoding'
 for x86 architecture on assembler under Linux. Here is __125 bytes__ of __Christmas vibe__ for your enjoyment, where 36
@@ -13,13 +17,13 @@ bytes of CPU commands total. Placed at 118th of 228 in challenge results.
 
 ## Usage
 
-Run a [binary](vc3_alx) with `./vc3_alx` command and fire-up a Christmas candles! :dizzy: :christmas_tree:
+Run a [binary](vc3_alx) with `./vc3_alx` command and fire-up a Christmas candles! :dizzy:
 
 You can also install nasm and build them from code:
 
 ```bash
 apt install nasm -y                                  # or yum, pacman, etc...
-nasm -f bin -o vc3_alx main.asm; ; chmod +x vc3_alx  # compile them and set executable flag
+nasm -f bin -o vc3_alx main.asm; chmod +x vc3_alx    # compile them and set executable flag
 ./vc3_alx                                            # to run
 wc -c vc3_alx                                        # to show total length of binary
 ```

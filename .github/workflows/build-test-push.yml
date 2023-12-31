@@ -1,0 +1,71 @@
+---
+
+name: ci
+on:    # yamllint disable-line rule:truthy
+  - push
+permissions:
+  contents: write
+
+jobs:
+
+  build:
+    name: Build binary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install nasm
+        run: sudo apt-get install -y nasm
+      - name: Build binary
+        run: nasm -f bin -o vc3_new main.asm
+      - name: Upload binary as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vc3_new_binary
+          path: vc3_new
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+
+  md5_test:
+    name: Run MD5 check of output while executing binary
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download binary as artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vc3_new_binary
+      - name: Install coreutils for md5sum run
+        run: sudo apt-get install -y coreutils
+      - name: Run binary and check md5 of output
+        run: |
+          chmod +x vc3_new
+          ./vc3_new | md5sum --check .github/workflows/output.md5
+
+  push:
+    name: Push new binary to repository
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - md5_test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download binary as artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: vc3_new_binary
+      - name: Replace an old binary
+        run: |
+          chmod +x vc3_new
+          rm vc3_alx || true
+          mv vc3_new vc3_alx
+      - name: Push binary
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: new binary add
+          file_pattern: 'vc3_alx'
+
