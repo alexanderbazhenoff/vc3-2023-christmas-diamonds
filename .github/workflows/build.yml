@@ -1,6 +1,6 @@
 ---
 
-name: ci
+name: build
 on:    # yamllint disable-line rule:truthy
   - push
 permissions: {}
