@@ -2,9 +2,7 @@
 
 name: CI
 on:    # yamllint disable-line rule:truthy
-  push:
-    paths:
-      - '.github'
+  - push
 permissions: {}
 
 jobs:
