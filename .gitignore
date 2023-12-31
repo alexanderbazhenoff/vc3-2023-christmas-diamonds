@@ -1,0 +1,9 @@
+.idea
+*.out
+*.png
+*.o
+*
+!/**/
+!*.*
+!vc3_alx
+!screenshot.png

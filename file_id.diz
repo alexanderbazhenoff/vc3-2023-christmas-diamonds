@@ -1,0 +1,29 @@
+vc3_alx (or name it the same as anther entries)
+
+Author: alx/brainwave
+Category: Christmas Challenge
+System: x86, Linux
+Language: Assembler
+Len source code: 3216 bytes
+Len exe file: 125 bytes
+Len code only: 89 bytes
+Instructions:
+
+Run binary:
+1. Open any linux terminal in any linux distribution.
+2. Install unzip if you don't have them: `sudo apt-get install unzip` (or `sudo yum install unzip`, etc)
+3. Unzip an archive: `unzip -q vc3_alx.zip`
+4. Go to unpacked folder: `cd vc3_alx`
+5. And run compiled binary: `./vc3_alx`
+
+Compile and run source file:
+1. Install nasm: `sudo apt-get install nasm` (or `sudo yum install nasm`, etc)
+2. Or compile and run: `nasm -f bin -o vc3_alx main.asm; chmod +x vc3_alx; ./vc3_alx`
+
+Description:
+The output routines works like a pixel shaders: calls the same code for each symbol to count what will be printed.
+Overall mechanics is quite simple: cycles and basic mathematics commands using simple i386/x86 instructions. The binary
+header here is tinyest as I can do it at this moment. It's don't allow to write in memory any bite except machine stack.
+Comments:
+About 20 years ago or so I have coded some demoscene stuff for ZX-Spectrum. Now I decided to made by fist work for x86
+architecture under Linux.
