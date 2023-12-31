@@ -19,7 +19,7 @@ You can also install nasm and build them from code:
 
 ```bash
 apt install nasm -y                                  # or yum, pacman, etc...
-nasm -f bin -o vc3_alx main.asm; ; chmod +x vc3_alx  # compile them and set executable flag
+nasm -f bin -o vc3_alx main.asm; chmod +x vc3_alx    # compile them and set executable flag
 ./vc3_alx                                            # to run
 wc -c vc3_alx                                        # to show total length of binary
 ```

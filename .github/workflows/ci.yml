@@ -1,0 +1,42 @@
+---
+
+name: CI
+on:    # yamllint disable-line rule:truthy
+  - push
+permissions: {}
+
+jobs:
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install nasm
+        run: sudo apt-get install -y nasm
+      - name: Build binary
+        run: nasm -f bin -o vc3_new main.asm; chmod +x vc3_new
+      - name: Upload binary as artifact
+        uses: @actions/upload-artifact
+        with:
+          name: vc3_new_binary
+          path: vc3_new
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 9
+
+  md5_test:
+    name: md5_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout
+      - name: Download binary as artifact
+        uses: actions/download-artifact
+        with:
+          name: vc3_new_binary
+      - name: Install coreutils for md5sum run
+        run: sudo apt-get install -y coreutils
+      - name: Run binary and check md5 of output
+        run: ./vc3_alx | md5sum --check .github/workflows/output.md5
