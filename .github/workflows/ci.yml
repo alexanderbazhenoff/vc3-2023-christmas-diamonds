@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout
+        uses: actions/checkout@v4
       - name: Install nasm
         run: sudo apt-get install -y nasm
       - name: Build binary
@@ -20,7 +20,7 @@ jobs:
           nasm -f bin -o vc3_new main.asm
           chmod +x vc3_new
       - name: Upload binary as artifact
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v4
         with:
           name: vc3_new_binary
           path: vc3_new
@@ -34,9 +34,9 @@ jobs:
     needs: build
     steps:
       - name: Checkout
-        uses: actions/checkout
+        uses: actions/checkout@v4
       - name: Download binary as artifact
-        uses: actions/download-artifact
+        uses: actions/download-artifact@v4
         with:
           name: vc3_new_binary
       - name: Install coreutils for md5sum run
