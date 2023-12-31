@@ -4,6 +4,7 @@ on:    # yamllint disable-line rule:truthy
   release:
     types: [created]
 name: release
+
 jobs:
   generate:
     name: Create release-artifacts
