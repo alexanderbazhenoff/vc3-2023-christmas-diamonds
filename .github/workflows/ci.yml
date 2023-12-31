@@ -42,7 +42,7 @@ jobs:
       - name: Install coreutils for md5sum run
         run: sudo apt-get install -y coreutils
       - name: Run binary and check md5 of output
-        run: ./vc3_alx | md5sum --check .github/workflow/output.md5
+        run: ./vc3_alx | md5sum --check .github/workflows/output.md5
       - name: Check md5 of a binary
         run: |
           set +e
