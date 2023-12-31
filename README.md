@@ -13,15 +13,15 @@ bytes of CPU commands total. Placed at 118th of 228 in challenge results.
 
 ## Usage
 
-Run a [binary](vc3_alx_party) with `./vc3_alx` command and fire-up a Christmas candles! :dizzy: :christmas_tree:
+Run a [binary](vc3_alx) with `./vc3_alx` command and fire-up a Christmas candles! :dizzy: :christmas_tree:
 
 You can also install nasm and build them from code:
 
 ```bash
 apt install nasm -y                                  # or yum, pacman, etc...
-nasm -f bin -o vc3_alx_party main.asm; chmod +x vc3_alx_party    # compile them and set executable flag
-./vc3_alx_party                                            # to run
-wc -c vc3_alx_party                                        # to show total length of binary
+nasm -f bin -o vc3_alx main.asm; chmod +x vc3_alx    # compile them and set executable flag
+./vc3_alx                                            # to run
+wc -c vc3_alx                                        # to show total length of binary
 ```
 
 This program used a mixed 32 and 16-bit CPU registry operations, syscalls and a few tricks. It also uses a very tiny 32
@@ -35,7 +35,7 @@ compatibility_mode  equ     0
 ```
 2. Compile and link them with an [ELF header](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format):
 ```bash
-nasm -f elf32 -o vc3_alx_party.o main.asm; ld -m elf_i386 compatibility_mode_binary vc3_alx_party.o
+nasm -f elf32 -o vc3_alx.o main.asm; ld -m elf_i386 compatibility_mode_binary vc3_alx.o
 ```
 
 Of Course the size of a binary will be very high, but you'll get a maximum compatibility.

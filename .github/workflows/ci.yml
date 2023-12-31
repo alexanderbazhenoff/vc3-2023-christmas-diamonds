@@ -71,5 +71,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: new binary add
-          file_pattern: 'vc3_alx_party'
+          file_pattern: 'vc3_alx'
 

@@ -7,19 +7,19 @@ BITS 32
 ; https://github.com/alexanderbazhenoff/vc3-2023-christmas-pattern/blob/main/LICENSE
 
 ; To compile from source and run:
-; nasm -f bin -o vc3_alx_party main.asm; chmod +x vc3_alx_party; ./vc3_alx_party
+; nasm -f bin -o vc3_alx main.asm; chmod +x vc3_alx; ./vc3_alx
 
 ; To show total length of a binary:
-; wc -c vc3_alx_party
+; wc -c vc3_alx
 
 ; To disassemble:
-; ndisasm vc3_alx_party -e 32 -b 32
+; ndisasm vc3_alx -e 32 -b 32
 
 ; To hexdump:
-; hd vc3_alx_party
+; hd vc3_alx
 
 ; Set to 1 if you wish to compile for maximum compatibility (larger size of binary), e.g.:
-; nasm -f elf32 -o vc3_alx_party.o main.asm; ld -m elf_i386 compatibility_mode_binary vc3_alx_party.o
+; nasm -f elf32 -o vc3_alx.o main.asm; ld -m elf_i386 compatibility_mode_binary vc3_alx.o
 compatibility_mode  equ     0
 
                     org     0x00010000
