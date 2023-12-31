@@ -5,6 +5,10 @@ __[Vintage Computing Christmas Challenge 2023 (VC³ 2023)](https://logiker.com/V
 
 [![screenshot](screenshot.png)](https://youtu.be/RGv2u6epVTY?si=gfbsXkw4JITLBSnn&t=1035)
 
+![build-test-push](https://github.com/alexanderbazhenoff/vc3-2023-christmas-diamonds/actions/workflows/build-test-push.yml/badge.svg?branch=main)
+![release](https://github.com/alexanderbazhenoff/vc3-2023-christmas-diamonds/actions/workflows/release.yml/badge.svg?branch=main)
+
+
 After the break for 20 years of ZX-Spectrum assembler coding or so, I decided to make the first attempt of 'sizecoding'
 for x86 architecture on assembler under Linux. Here is __125 bytes__ of __Christmas vibe__ for your enjoyment, where 36
 bytes is a tiny [ELF header](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format) (Executable and Linkable
