@@ -17,9 +17,7 @@ jobs:
       - name: Install nasm
         run: sudo apt-get install -y nasm
       - name: Build binary
-        run: |
-          nasm -f bin -o vc3_new main.asm
-          chmod +x vc3_new
+        run: nasm -f bin -o vc3_new main.asm
       - name: Upload binary as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -43,7 +41,9 @@ jobs:
       - name: Install coreutils for md5sum run
         run: sudo apt-get install -y coreutils
       - name: Run binary and check md5 of output
-        run: ./vc3_new | md5sum --check .github/workflows/output.md5
+        run: |
+          chmod +x vc3_new
+          ./vc3_new | md5sum --check .github/workflows/output.md5
       - name: Check md5 of a binary
         run: |
           set +e
@@ -64,6 +64,7 @@ jobs:
           name: vc3_new_binary
       - name: Replace an old binary
         run: |
+          chmod +x vc3_new
           rm vc3_alx || true
           mv vc3_new vc3_alx
       - name: Push binary
