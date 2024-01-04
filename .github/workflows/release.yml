@@ -3,9 +3,7 @@
 name: release
 on:    # yamllint disable-line rule:truthy
   - push
-permissions:
-  contents: write
-
+permissions: write-all
 jobs:
 
   release:
