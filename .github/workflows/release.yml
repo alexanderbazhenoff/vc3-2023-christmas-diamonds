@@ -32,7 +32,7 @@ jobs:
           (
             if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
               echo "BINARY_NAME=vc3_alx"
-              echo "RELEASE_NAME=${{ steps.changelog.outputs.latestVersion }}-challenge_version"
+              echo "RELEASE_NAME=v${{ steps.changelog.outputs.latestVersion }}-challenge_version"
             else
               echo "BINARY_NAME=vc3_alx_final"
               echo "RELEASE_NAME=v${{ steps.changelog.outputs.latestVersion }}"
@@ -57,4 +57,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release_id: ${{ steps.release.outputs.id }}
-          asset_name: ${{ steps.changelog.outputs.latestVersion }}.*
+          asset_name: ${{ steps.changelog.outputs.latestVersion }}.zip
