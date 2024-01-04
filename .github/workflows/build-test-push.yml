@@ -93,10 +93,10 @@ jobs:
           rm "$BINARY_NAME" || true
           mv vc3_new "$BINARY_NAME"
         env:
-          BINARY_NAME: ${{ steps.build.outputs.BINARY_NAME }}
+          BINARY_NAME: ${{ needs.build.outputs.BINARY_NAME }}
       - name: Push binary
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: new binary add
-          file_pattern: ${{ steps.build.outputs.BINARY_NAME }}
+          file_pattern: ${{ needs.build.outputs.BINARY_NAME }}
 
