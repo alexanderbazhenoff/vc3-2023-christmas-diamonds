@@ -10,8 +10,6 @@ jobs:
   release:
     name: Release from push
     runs-on: ubuntu-latest
-    outputs:
-      BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
     steps:
       - name: Pause until all workflows are completed
         uses: willgarcia/workflow-wait-action@main
@@ -43,6 +41,7 @@ jobs:
       - name: Replace an old binary
         run: ./.github/workflows/replace_binary.sh "$BINARY_NAME"
       - name: Create a release
+        id: release
         uses: ncipollo/release-action@v1
         with:
           name: ${{ env.RELEASE_NAME }}
@@ -52,3 +51,10 @@ jobs:
           allowUpdates: true
           artifactErrorsFailBuild: true
           artifacts: ${{ env.BINARY_NAME }}
+      - name: Remove assets with sources
+        uses: flcdrg/remove-release-asset-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_id: ${{ steps.release.outputs.id }}
+          asset_name: ${{ steps.changelog.outputs.latestVersion }}.*
