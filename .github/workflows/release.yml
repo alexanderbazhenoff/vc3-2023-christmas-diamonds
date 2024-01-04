@@ -14,17 +14,6 @@ jobs:
       BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
     steps:
       - name: Wait build-test-push success
-        uses: convictional/trigger-workflow-and-wait@master
-        with:
-          owner: ${{ github.repository_owner }}
-          repo: vc3-2023-christmas-diamonds
-          ref: ${{ github.head_ref || github.ref_name }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow_file_name: build-test-push
-          client_payload: '{"test": "true"}'
-          wait_interval: 2
-          propagate_failure: true
-      - name: Wait build-test-push success
         uses: aurelien-baudet/workflow-dispatch@v2
         with:
           workflow: build-test-push
