@@ -85,12 +85,7 @@ jobs:
         with:
           name: vc3_new_binary
       - name: Replace an old binary
-        run: |
-          chmod +x vc3_new
-          rm "$BINARY_NAME" || true
-          mv vc3_new "$BINARY_NAME"
-        env:
-          BINARY_NAME: ${{ needs.build.outputs.BINARY_NAME }}
+        run: ./.github/workflows/replace_binary.sh "${{ needs.build.outputs.BINARY_NAME }}"
       - name: Push binary
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
