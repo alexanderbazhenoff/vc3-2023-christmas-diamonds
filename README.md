@@ -36,7 +36,7 @@ them with a larger ELF-header and some additional commands inside:
 1. Set up a nonstant in [main.asm](main.asm) file for:
 
    ```nasm
-   compatibility_mode  equ     0
+   compatibility_mode  equ     1
    ```
 
 2. Compile and link them with an [ELF header](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format):
