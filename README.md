@@ -49,10 +49,12 @@ Of Course the size of a binary will be very high, but you'll get a maximum compa
 
 ## URLs
 
-- [youtube](https://www.youtube.com/watch?v=RGv2u6epVTY)
-- [official page](https://logiker.com/Vintage-Computing-Christmas-Challenge-2023)
+- [pouet.net mirror](https://www.pouet.net/prod.php?which=95741)
+- [Demozoo mirror](https://demozoo.org/productions/335135/)
+- [YouTube video](https://www.youtube.com/watch?v=RGv2u6epVTY)
+- [Official page](https://logiker.com/Vintage-Computing-Christmas-Challenge-2023)
 - [Demozoo page](https://demozoo.org/parties/4821/)
-- [downloads at scene.org](https://ftp.scene.org/pub/parties/2023/vccc23/)
+- [Downloads at Scene.org](https://ftp.scene.org/pub/parties/2023/vccc23/)
 
 
 
