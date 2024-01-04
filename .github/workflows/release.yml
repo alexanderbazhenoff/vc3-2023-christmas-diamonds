@@ -13,11 +13,8 @@ jobs:
     outputs:
       BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
     steps:
-      - name: Wait build-test-push success
-        uses: aurelien-baudet/workflow-dispatch@v2
-        with:
-          workflow: build-test-push
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pause until all workflows are completed
+        uses: willgarcia/workflow-wait-action@v0.1.0
       - name: Checkout
         uses: actions/checkout@v4
       - name: Parse Changelog
