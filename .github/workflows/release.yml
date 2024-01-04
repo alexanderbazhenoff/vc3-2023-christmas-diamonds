@@ -3,7 +3,8 @@
 name: release
 on:    # yamllint disable-line rule:truthy
   - push
-permissions: write-all
+permissions:
+  contents: write
 jobs:
 
   release:
@@ -19,10 +20,15 @@ jobs:
           repo: vc3-2023-christmas-diamonds
           ref: ${{ github.head_ref || github.ref_name }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow_file_name: build-test-push.yml
+          workflow_file_name: build-test-push
           client_payload: '{"test": "true"}'
           wait_interval: 2
           propagate_failure: true
+      - name: Wait build-test-push success
+        uses: aurelien-baudet/workflow-dispatch@v2
+        with:
+          workflow: build-test-push
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v4
       - name: Parse Changelog
