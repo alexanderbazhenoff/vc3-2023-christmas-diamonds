@@ -52,11 +52,11 @@ jobs:
           generateReleaseNotes: false
           allowUpdates: true
           artifactErrorsFailBuild: true
-          artifacts: ${{ env.BINARY_NAME }}
+#          artifacts: ${{ env.BINARY_NAME }}
       - name: Upload the binary
         uses: skx/github-action-publish-binaries@release-1.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-#          releaseId: ${{ steps.release.outputs.id }}
+          releaseId: ${{ steps.release.outputs.id }}
           args: ${{ env.BINARY_NAME }}
