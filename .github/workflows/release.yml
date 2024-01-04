@@ -13,12 +13,25 @@ jobs:
     name: Make a release from pushed tag
     runs-on: ubuntu-latest
     steps:
-      - name: Create release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref_name }}
-        run: |
-          gh release create "$tag" \
-              --repo="$GITHUB_REPOSITORY" \
-              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
-              --generate-notes
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Wait build-test-push success
+        uses: convictional/trigger-workflow-and-wait@v1.6.1
+        with:
+          owner: alexanderbazhenoff
+          repo: vc3-2023-christmas-diamonds
+          github_token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+          github_user: github-user
+          workflow_file_name: build-test-push.yml
+          wait_interval: 2
+          propagate_failure: true
+#      - name: Create a release
+#        uses: ncipollo/release-action@v1
+#        with:
+#          name: ${GITHUB_REPOSITORY#*/} ${tag#v}
+#          body: |
+#            Challenge version.
+#          generateReleaseNotes: true
+#          allowUpdates: true
+#          artifactErrorsFailBuild: true
+#          artifacts: "vc3_alx"

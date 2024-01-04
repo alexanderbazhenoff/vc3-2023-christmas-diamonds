@@ -48,6 +48,7 @@ Of Course the size of a binary will be very high, but you'll get a maximum compa
 
 - [youtube](https://www.youtube.com/watch?v=RGv2u6epVTY)
 - [offical page](https://logiker.com/Vintage-Computing-Christmas-Challenge-2023)
+- [Demozzoo page](https://demozoo.org/parties/4821/)
 - downloads at Scene.org (not uploaded yet)
 
 

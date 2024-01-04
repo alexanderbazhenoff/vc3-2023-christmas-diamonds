@@ -14,6 +14,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Get the maximum available version
+        id: changelog
+        uses: ocavue/changelog-parser-action@v1
+      - name: Put latest version into env variables
+        run: echo "LATEST_RELEASE=${{ steps.changelog.outputs.latestVersion }}" >> $GITHUB_ENV
+      - name: Output latest version
+        run: echo "$LATEST_RELEASE"
       - name: Install nasm
         run: sudo apt-get install -y nasm
       - name: Build binary
@@ -28,7 +35,7 @@ jobs:
           compression-level: 0
 
   md5_test:
-    name: Run MD5 check of output while executing binary
+    name: Run MD5 check of output
     runs-on: ubuntu-latest
     needs: build
     steps:
