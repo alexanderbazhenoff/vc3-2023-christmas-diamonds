@@ -33,11 +33,13 @@ jobs:
               echo "SOURCE_NAME=final.asm"
               echo "BINARY_NAME=vc3_alx_final"
             fi
-          ) >> $GITHUB_OUTPUT
+          ) | tee -a $GITHUB_OUTPUT $GITHUB_ENV
       - name: Install nasm
         run: sudo apt-get install -y nasm
       - name: Build binary
-        run: nasm -f bin -o vc3_new main.asm
+        run: |
+          echo "Source name is $SOURCE_NAME"
+          nasm -f bin -o vc3_new "$SOURCE_NAME"
       - name: Upload binary as artifact
         uses: actions/upload-artifact@v4
         with:
