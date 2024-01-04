@@ -1,30 +1,50 @@
 ---
 
+name: release
 on:    # yamllint disable-line rule:truthy
-  push:
-    tags:
-      - v*
+  - push
 permissions:
   contents: write
 
-name: Create release
 jobs:
+
   release:
     name: Make a release from pushed tag
     runs-on: ubuntu-latest
+    outputs:
+      BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Wait build-test-push success
-        uses: convictional/trigger-workflow-and-wait@v1.6.1
+        uses: convictional/trigger-workflow-and-wait@v1
         with:
           owner: alexanderbazhenoff
           repo: vc3-2023-christmas-diamonds
-          github_token: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
-          github_user: github-user
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow_file_name: build-test-push.yml
           wait_interval: 2
           propagate_failure: true
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Parse Changelog
+        id: changelog
+        uses: ocavue/changelog-parser-action@v1
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build-test-push.yml
+      - name: Show files
+        run: ls -lh
+      - name: Set up binary name based on a release version
+        id: variables
+        run: |
+          (
+            if [[ "${{ steps.changelog.outputs.latestVersion }}" ]]; then
+              echo "BINARY_NAME=vc3_alx"
+            else
+              echo "BINARY_NAME=vc3_alx_final"
+            fi
+          ) >> $GITHUB_OUTPUT
 #      - name: Create a release
 #        uses: ncipollo/release-action@v1
 #        with:
