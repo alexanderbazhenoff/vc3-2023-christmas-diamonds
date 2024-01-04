@@ -11,6 +11,8 @@ jobs:
   build:
     name: Build binary
     runs-on: ubuntu-latest
+    outputs:
+      BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -82,10 +84,10 @@ jobs:
           rm "$BINARY_NAME" || true
           mv vc3_new "$BINARY_NAME"
         env:
-          BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
+          BINARY_NAME: ${{ steps.build.outputs.BINARY_NAME }}
       - name: Push binary
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: new binary add
-          file_pattern: ${{ steps.variables.outputs.BINARY_NAME }}
+          file_pattern: ${{ steps.build.outputs.BINARY_NAME }}
 
