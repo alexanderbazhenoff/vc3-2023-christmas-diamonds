@@ -19,8 +19,6 @@ jobs:
       - name: Get the maximum available version
         id: changelog
         uses: ocavue/changelog-parser-action@v1
-#      - name: Put latest version into env variables
-#        run: echo "LATEST_RELEASE=${{ steps.changelog.outputs.latestVersion }}" >> $GITHUB_ENV
       - name: Set up source name based on a release version
         run: |
           (
@@ -34,7 +32,7 @@ jobs:
         id: variables
         run: |
           (
-            if [[ "${{ steps.changelog.outputs.latestVersion }}" ]]; then
+            if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
               echo "BINARY_NAME=vc3_alx"
             else
               echo "BINARY_NAME=vc3_alx_final"

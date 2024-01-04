@@ -15,7 +15,7 @@ jobs:
       BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
     steps:
       - name: Wait build-test-push success
-        uses: convictional/trigger-workflow-and-wait@v1
+        uses: convictional/trigger-workflow-and-wait@master
         with:
           owner: alexanderbazhenoff
           repo: vc3-2023-christmas-diamonds
@@ -31,7 +31,7 @@ jobs:
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v3
         with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: build-test-push.yml
       - name: Show files
         run: ls -lh
@@ -39,7 +39,7 @@ jobs:
         id: variables
         run: |
           (
-            if [[ "${{ steps.changelog.outputs.latestVersion }}" ]]; then
+            if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
               echo "BINARY_NAME=vc3_alx"
             else
               echo "BINARY_NAME=vc3_alx_final"
