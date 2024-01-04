@@ -34,21 +34,27 @@ from 4.4.0 up to 5.10.0, but if one day something will be changed and this binar
 them with a larger ELF-header and some additional commands inside:
 
 1. Set up a nonstant in [main.asm](main.asm) file for:
-```nasm
-compatibility_mode  equ     0
-```
+
+   ```nasm
+   compatibility_mode  equ     0
+   ```
+
 2. Compile and link them with an [ELF header](https://en.wikipedia.org/wiki/Executable_and_Linkable_Format):
-```bash
-nasm -f elf32 -o vc3_alx.o main.asm; ld -m elf_i386 compatibility_mode_binary vc3_alx.o
-```
+
+   ```bash
+   nasm -f elf32 -o vc3_alx.o main.asm; ld -m elf_i386 compatibility_mode_binary vc3_alx.o
+   ```
 
 Of Course the size of a binary will be very high, but you'll get a maximum compatibility.
 
 ## URLs
 
-- [youtube](https://www.youtube.com/watch?v=RGv2u6epVTY)
-- [offical page](https://logiker.com/Vintage-Computing-Christmas-Challenge-2023)
-- downloads at Scene.org (not uploaded yet)
+- [pouet.net mirror](https://www.pouet.net/prod.php?which=95741)
+- [Demozoo mirror](https://demozoo.org/productions/335135/)
+- [YouTube video](https://www.youtube.com/watch?v=RGv2u6epVTY)
+- [Official page](https://logiker.com/Vintage-Computing-Christmas-Challenge-2023)
+- [Demozoo page](https://demozoo.org/parties/4821/)
+- [Downloads at Scene.org](https://ftp.scene.org/pub/parties/2023/vccc23/)
 
 
 

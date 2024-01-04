@@ -1,26 +1,56 @@
 ---
 
-on:    # yamllint disable-line rule:truthy
-  release:
-    types: [created]
 name: release
+on:    # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
 
 jobs:
-  generate:
-    name: Create release-artifacts
+
+  release:
+    name: Release from push
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-      - name: Install nasm
-        run: sudo apt-get install -y nasm
-      - name: Build binary
-        run: |
-          nasm -f bin -o vc3_alx main.asm
-          chmod +x vc3_alx
-      - name: Upload the artifacts
-        uses: skx/github-action-publish-binaries@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pause until all workflows are completed
+        uses: willgarcia/workflow-wait-action@main
         with:
-          args: 'vc3_alx'
+          interval: 2
+          initial_delay: 40
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Parse Changelog
+        id: changelog
+        uses: ocavue/changelog-parser-action@v1
+      - name: Download artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: build-test-push.yml
+          name: vc3_new_binary
+      - name: Set up binary name based on a release version
+        run: |
+          (
+            if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
+              echo "BINARY_NAME=vc3_alx"
+              echo "RELEASE_NAME=v${{ steps.changelog.outputs.latestVersion }}-challenge_version"
+            else
+              echo "BINARY_NAME=vc3_alx_final"
+              echo "RELEASE_NAME=v${{ steps.changelog.outputs.latestVersion }}"
+            fi
+          ) >> $GITHUB_ENV
+      - name: Replace an old binary
+        run: ./.github/workflows/replace_binary.sh "$BINARY_NAME"
+      - name: Create a release
+        id: release
+        uses: ncipollo/release-action@v1
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          body: ${{ steps.changelog.outputs.latestBody }}
+          tag: v${{ steps.changelog.outputs.latestVersion }}
+          generateReleaseNotes: false
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          artifacts: ${{ env.BINARY_NAME }}

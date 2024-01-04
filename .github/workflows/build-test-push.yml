@@ -11,13 +11,39 @@ jobs:
   build:
     name: Build binary
     runs-on: ubuntu-latest
+    outputs:
+      BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Get the maximum available version
+        id: changelog
+        uses: ocavue/changelog-parser-action@v1
+      - name: Set up source name based on a release version
+        run: |
+          (
+            if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
+              echo "SOURCE_NAME=main.asm"
+            else
+              echo "SOURCE_NAME=final.asm"
+            fi
+          ) >> $GITHUB_ENV
+      - name: Set up binary name based on a release version
+        id: variables
+        run: |
+          (
+            if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
+              echo "BINARY_NAME=vc3_alx"
+            else
+              echo "BINARY_NAME=vc3_alx_final"
+            fi
+          ) >> $GITHUB_OUTPUT
       - name: Install nasm
         run: sudo apt-get install -y nasm
       - name: Build binary
-        run: nasm -f bin -o vc3_new main.asm
+        run: |
+          echo "Source name is $SOURCE_NAME"
+          nasm -f bin -o vc3_new "$SOURCE_NAME"
       - name: Upload binary as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -28,7 +54,7 @@ jobs:
           compression-level: 0
 
   md5_test:
-    name: Run MD5 check of output while executing binary
+    name: Run MD5 check of output
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -59,13 +85,10 @@ jobs:
         with:
           name: vc3_new_binary
       - name: Replace an old binary
-        run: |
-          chmod +x vc3_new
-          rm vc3_alx || true
-          mv vc3_new vc3_alx
+        run: ./.github/workflows/replace_binary.sh "${{ needs.build.outputs.BINARY_NAME }}"
       - name: Push binary
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: new binary add
-          file_pattern: 'vc3_alx'
+          file_pattern: ${{ needs.build.outputs.BINARY_NAME }}
 
