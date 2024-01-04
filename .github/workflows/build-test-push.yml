@@ -24,7 +24,6 @@ jobs:
       - name: Set up names based on a release version
         id: variables
         run: |
-          echo "Latest release is $LATEST_RELEASE"
           (
             if [[ "$LATEST_RELEASE" == "1.0.0" ]]; then
               echo "SOURCE_NAME=main.asm"
