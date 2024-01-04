@@ -9,7 +9,7 @@ permissions:
 jobs:
 
   release:
-    name: Make a release from pushed tag
+    name: Make/Update a release from push
     runs-on: ubuntu-latest
     outputs:
       BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
@@ -19,6 +19,7 @@ jobs:
         with:
           owner: alexanderbazhenoff
           repo: vc3-2023-christmas-diamonds
+          ref: ${{ github.head_ref || github.ref_name }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow_file_name: build-test-push.yml
           wait_interval: 2
