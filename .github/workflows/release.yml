@@ -1,26 +1,24 @@
 ---
 
 on:    # yamllint disable-line rule:truthy
-  release:
-    types: [created]
-name: release
+  push:
+    tags:
+      - v*
+permissions:
+  contents: write
 
+name: Create release
 jobs:
-  generate:
-    name: Create release-artifacts
+  release:
+    name: Release pushed tag
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-      - name: Install nasm
-        run: sudo apt-get install -y nasm
-      - name: Build binary
-        run: |
-          nasm -f bin -o vc3_alx main.asm
-          chmod +x vc3_alx
-      - name: Upload the artifacts
-        uses: skx/github-action-publish-binaries@master
+      - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: 'vc3_alx'
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+              --generate-notes
