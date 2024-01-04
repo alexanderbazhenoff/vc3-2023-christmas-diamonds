@@ -10,7 +10,7 @@ permissions:
 name: Create release
 jobs:
   release:
-    name: Release pushed tag
+    name: Make a release from pushed tag
     runs-on: ubuntu-latest
     steps:
       - name: Create release
