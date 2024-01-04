@@ -48,7 +48,7 @@ jobs:
           name: ${{ github.event.repository.name }} ${{ env.RELEASE_POSTFIX }}
           body: ${{ steps.changelog.outputs.latestBody }}
           tag: v${{ steps.changelog.outputs.latestVersion }}
-          generateReleaseNotes: true
+          generateReleaseNotes: false
           allowUpdates: true
           artifactErrorsFailBuild: true
           artifacts: ${{ env.BINARY_NAME }}
