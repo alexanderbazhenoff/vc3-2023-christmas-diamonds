@@ -21,18 +21,25 @@ jobs:
         uses: ocavue/changelog-parser-action@v1
       - name: Put latest version into env variables
         run: echo "LATEST_RELEASE=${{ steps.changelog.outputs.latestVersion }}" >> $GITHUB_ENV
-      - name: Set up names based on a release version
-        id: variables
+      - name: Set up source name based on a release version
         run: |
           (
             if [[ "$LATEST_RELEASE" == "1.0.0" ]]; then
               echo "SOURCE_NAME=main.asm"
-              echo "BINARY_NAME=vc3_alx"
             else
               echo "SOURCE_NAME=final.asm"
+            fi
+          ) >> $GITHUB_ENV
+      - name: Set up binary name based on a release version
+        id: variables
+        run: |
+          (
+            if [[ "$LATEST_RELEASE" == "1.0.0" ]]; then
+              echo "BINARY_NAME=vc3_alx"
+            else
               echo "BINARY_NAME=vc3_alx_final"
             fi
-          ) | tee -a $GITHUB_OUTPUT $GITHUB_ENV
+          ) >> $GITHUB_OUTPUT
       - name: Install nasm
         run: sudo apt-get install -y nasm
       - name: Build binary
