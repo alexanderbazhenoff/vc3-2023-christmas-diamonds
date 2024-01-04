@@ -17,11 +17,12 @@ jobs:
       - name: Wait build-test-push success
         uses: convictional/trigger-workflow-and-wait@master
         with:
-          owner: alexanderbazhenoff
+          owner: ${{ github.repository_owner }}
           repo: vc3-2023-christmas-diamonds
           ref: ${{ github.head_ref || github.ref_name }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow_file_name: build-test-push.yml
+          client_payload: '{"test": "true"}'
           wait_interval: 2
           propagate_failure: true
       - name: Checkout
