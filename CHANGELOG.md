@@ -1,5 +1,5 @@
 # Changelog
 
-## [1.0.0](https://github.com/alexanderbazhenoff/vc3-2023-christmas-diamonds/pull/1) (2021-08-14)
+## [1.0.0](https://github.com/alexanderbazhenoff/vc3-2023-christmas-diamonds/pull/1) (2023-12-25)
 ### Challenge version
-- [original](main.asm) 125 bytes size as it was [performed](https://youtu.be/RGv2u6epVTY?si=gfbsXkw4JITLBSnn&t=1035).
+- Original 125 bytes binary as it was performed during the challenge. 

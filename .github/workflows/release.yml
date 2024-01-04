@@ -8,7 +8,7 @@ permissions:
 jobs:
 
   release:
-    name: Make/Update a release from push
+    name: Release from push
     runs-on: ubuntu-latest
     outputs:
       BINARY_NAME: ${{ steps.variables.outputs.BINARY_NAME }}
@@ -34,10 +34,10 @@ jobs:
           (
             if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
               echo "BINARY_NAME=vc3_alx"
-              echo "RELEASE_POSTFIX=challenge_version"
+              echo "RELEASE_NAME=${{ steps.changelog.outputs.latestVersion }}-challenge_version"
             else
               echo "BINARY_NAME=vc3_alx_final"
-              echo "RELEASE_POSTFIX=v${{ steps.changelog.outputs.latestVersion }}"
+              echo "RELEASE_NAME=v${{ steps.changelog.outputs.latestVersion }}"
             fi
           ) >> $GITHUB_ENV
       - name: Replace an old binary
@@ -45,7 +45,7 @@ jobs:
       - name: Create a release
         uses: ncipollo/release-action@v1
         with:
-          name: ${{ github.event.repository.name }} ${{ env.RELEASE_POSTFIX }}
+          name: ${{ env.RELEASE_NAME }}
           body: ${{ steps.changelog.outputs.latestBody }}
           tag: v${{ steps.changelog.outputs.latestVersion }}
           generateReleaseNotes: false
