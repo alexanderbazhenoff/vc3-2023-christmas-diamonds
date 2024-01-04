@@ -86,7 +86,7 @@ jobs:
           name: vc3_new_binary
       - name: Replace an old binary
         run: |
-          echo "$BINARY_NAME"
+          ls -lh
           chmod +x vc3_new
           rm "$BINARY_NAME" || true
           mv vc3_new "$BINARY_NAME"

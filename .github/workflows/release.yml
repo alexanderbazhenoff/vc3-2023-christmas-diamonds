@@ -25,10 +25,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: build-test-push.yml
-      - name: Show files
-        run: ls -lh
       - name: Set up binary name based on a release version
-        id: variables
         run: |
           (
             if [[ "${{ steps.changelog.outputs.latestVersion }}" == "1.0.0" ]]; then
@@ -36,7 +33,14 @@ jobs:
             else
               echo "BINARY_NAME=vc3_alx_final"
             fi
-          ) >> $GITHUB_OUTPUT
+          ) >> $GITHUB_ENV
+      - name: Replace an old binary
+        run: |
+          echo "$BINARY_NAME"
+          ls -lh
+          chmod +x vc3_new
+          rm "$BINARY_NAME" || true
+          mv vc3_new "$BINARY_NAME"
 #      - name: Create a release
 #        uses: ncipollo/release-action@v1
 #        with:
